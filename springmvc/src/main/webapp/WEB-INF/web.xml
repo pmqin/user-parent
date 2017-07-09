@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0"  metadata-complete="true">
+
+	<!-- 如果设置metadata-complete="true"，会在启动时不扫描注解（annotation）。如果不扫描注解的话，用注解进行的配置就无法生效，例如：@WebServlet -->
+	<display-name>springmvc</display-name>
+	<!-- <context-param> -->
+	<!-- <param-name>contextConfigLocation</param-name> -->
+	<!-- <param-value>classpath:applicationContext.xml</param-value> -->
+	<!-- </context-param> -->
+	<!-- Spring监听器 -->
+	<!-- <listener> -->
+	<!-- <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
+	<!-- </listener> -->
+
+	<!-- 防止spring内存溢出监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ajaxEncoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 初级的http://www.cnblogs.com/leiOOlei/p/3414612.html -->
+	<servlet>
+		<servlet-name>mvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 如果不配置contextConfigLocation 就加载 /WEB-INF/servlet-name-servlet.xml的配置文件 -->	
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>
+			<!-- <param-value>classpath:mvc-dispatcher-servlet.xml</param-value> -->
+		</init-param>	
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- 支持多種的後綴名的格式 -->
+	<servlet-mapping>
+		<servlet-name>mvc</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	 </servlet-mapping>
+		<servlet-mapping>
+	    <servlet-name>mvc</servlet-name>
+	    <url-pattern>*.do</url-pattern>
+	  </servlet-mapping>
+	  <servlet-mapping>
+	    <servlet-name>mvc</servlet-name>
+	    <url-pattern>*.page</url-pattern>
+	  </servlet-mapping>
+		
+	<!-- 支持restful格式的servlet -->
+	<servlet>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 如果不配置contextConfigLocation 就加载 /WEB-INF/servlet-name-servlet.xml的配置文件 -->	
+<!-- 		<init-param> -->
+<!-- 			<param-name>contextConfigLocation</param-name> -->
+<!-- 			<param-value> -->
+<!-- 				classpath:spring-mvc.xml -->
+<!-- 			</param-value> -->
+<!-- 		</init-param>	 -->
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<!-- 支持restful格式 -->
+	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	
+
+	<!-- 配置session超时时间，单位分钟 -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

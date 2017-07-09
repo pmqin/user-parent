@@ -1,0 +1,3 @@
+com\cn\qin\UserAction.class
+com\cn\qin\interceptor\PrintMessageInterceptor.class
+com\cn\qin\action\HelloAction.class

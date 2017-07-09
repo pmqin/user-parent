@@ -1,0 +1,756 @@
+
+��¼ | ע��
+I love fish
+Ŀ¼��ͼժҪ��ͼ����
+�����˵ĳ��ʱ�̣�24�������з������ڵ���      ����Ա2����Ѷ     �����н��ʴ�--һ���趯���ŵ�iOS����
+ ʹ��FileReader��FileWriter��ȡд���ļ�����
+��ǩ�� bufferstringfileexceptionimportclass
+2005-03-02 15:20 32838���Ķ� ����(2) �ղ� �ٱ�
+ ���ࣺ ѧϰ�Ǽ���������飨9��  
+��Ȩ����������Ϊ����ԭ�����£�δ���������?��ת�ء�
+
+Java �е��ֽ�������ֱ�Ӳ���Unicode�ַ�Ҫ��ֱ�Ӳ����ַ�����/���Ҫʹ�ü����ַ�����/����ࡣ
+
+�ַ�����νṹ�Ķ�����Reader��Writer�����ࡣ
+
+1��Reader
+
+    Reader�Ƕ���java����ʽ�ַ�����ģʽ�ĳ����ࡣ�����쳣ΪIOException��
+
+    ��Ҫ�����У�
+
+    abstract  void  close() �ر����������رպ��ȡ�������IOException�쳣��
+
+    void  mark(int numChars) ���������ĵ�ǰλ������һ����־������������numChars���ַ��ȡǰ��Ч��
+
+    boolean markSupported() ����֧��mark()/reset()�򷵻�true��
+
+    int read() �����õ�����������һ���ַ�ɶ��򷵻�һ�����ͣ��ļ�β����-1��
+
+    int read(char buffer[ ]) ��ͼ��ȡbuffe�е�buffer.length���ַ���ʵ�ʳɹ���ȡ���ַ����ļ�β����-1��
+
+    abstract int read (char buffer[ ], int offset, int numChars) ��ͼ��ȡbuffer�д�buffer[offset]��ʼ�� numChars���ַ���ʵ�ʳɹ���ȡ���ַ����ļ�β����-1��
+
+    void reset()  ��������ָ�뵽��ǰ�����ı�־����
+
+    long skip (long numChars) ���numChars �������ַ��������ַ���
+
+2��writer
+
+    writer �Ƕ�����ʸ�ַ�����ĳ����ࡣ���и���ķ���������һ��voidֵ���ڳ�����������һ��IOException�쳣��
+
+    ��Ҫ������
+
+    abstract void close()  �ر���������رպ��д������IOException�쳣��
+
+    abstract void flush(0  �������״̬��ʹÿ���������������Ҳ����ˢ�»��塣
+
+    void  write(int ch) �������д�뵥���ַ������һ�����ͣ����Բ��ذѲ���ת�����ַ��;Ϳ��Ե��á�
+
+    void write (char buffer[ ]) ��һ�������д��һ��������ַ����顣
+
+    abstract void write (char buffer[ ], int offset ,int numChars)  ����õ������д������buffer ��buffer[offset]Ϊ����numChars���ַ������ڵ����ݡ�
+
+    void write(String str)  ����õ������дstr��
+
+    void write (String str, int offset, int numChars) д����str�����ƶ���offsetΪ���ĳ���ΪnumChars���ַ������ڵ����ݡ�
+
+3��FileReader
+
+    FileReader�ഴ����һ�����Զ�ȡ�ļ����ݵ�Reader�ࡣ��Ĺ��캯��
+
+    FileReader (String filePath)  filePath ��һ���ļ�������·��
+
+    FileReader(File fileObj)  fileObj ���������ļ���File����
+
+    ����FileNotFoundException�쳣��
+
+    ���磬��һ���ļ����ж�ȡ�������������׼��������
+
+    import  java.io.*;
+
+    class FileReaderDemo {
+
+        public static void main (String args[ ] ) throws Exception {
+
+            FileReader fr =  new FileReader ("c://in.txt");
+
+            BufferedReader br = new BufferedReader (fr);
+
+            String s;
+
+             while ((s = br.readLine() )!=null) {
+
+                 System.out.prinln (s);
+
+              }
+
+            fr.close();
+
+      }
+
+    }
+
+4��FileWriter
+
+    FileWriter ����һ������д�ļ���Writer�ࡣ���캯��
+
+    FileWriter (String filePath)  filePath ��һ���ļ�������·��
+
+    FileWriter(String filePath, boolean append)  ���appendΪtrue ,����Ǹ��ӵ��ļ�β�ġ�
+
+    FileWriter(File fileObj)  ���������ļ���File����
+
+    ���磬������һ�����ַ��������ʼ���һ��String��Ȼ����getChars()������ȡ�ַ����顣Ȼ�󴴽��� ����ļ���file1.txt�������еĸ����ַ�file2.txt�����е��ַ�file2.txt�������ķ�֮һ��
+
+    import  java.io.*;
+
+    class FileWriterDemo {
+
+        public static void  main (String args[ ]) throws Exception {
+
+            String source = "learn how to write to file";
+
+            FileWriter  f1 = new FileWriter("file1.txt");
+
+            for  (int i=0; i<buffer.length; i +=2) {
+
+                f1.write (buffer[i]);
+
+             }
+
+            fo.close();
+
+             FileWriter f2 = new FileWriter("file2.txt");
+
+            f2.write(buffer);
+
+            f2.close();
+
+            FileWriter  f3 = new FileWriter ("file3.txt");
+
+            f2.write(buffer,buffer.length-buffer.length/4, buffer.length/4);
+
+        }
+
+}
+
+��
+0
+��
+0
+ 
+ 
+��һƪSpring Framework 1.1.5 Released
+��һƪ��������fish�Ż���
+�ҵ�ͬ������
+ѧϰ�Ǽ���������飨9��
+?Jbuilder ����ʧ�ܣ���ԭ��2005-09-27�Ķ�744
+?struts ��ǩ��2005-07-20�Ķ�880
+?ѧϰSpring Framework�ļ�¼��1��2005-02-28�Ķ�701
+?java����ʱ������ѧϰ2005-02-24�Ķ�1412
+?��aix�°�װgcc2005-01-05�Ķ�923
+?meta��ǩ2005-08-05�Ķ�1014
+?Spring Framework 1.1.5 Released2005-03-01�Ķ�850
+?����ǰһ�������2005-02-25�Ķ�1547
+?win2003����ȫж��oracle9i2005-01-05�Ķ�2837
+
+ 
+�ο�֪ʶ��
+img
+Java SE֪ʶ��
+23310��ע|468��¼
+img
+Java EE֪ʶ��
+15606��ע|1260��¼
+img
+Java ֪ʶ��
+23518��ע|1449��¼
+��������
+����Javascript ���ڶ���(Date)��Ƶ�γ�����Javascript Object(����)��Ƶ�̳�JavaScript�������ı����Ƶ�γ̵ڶ��� ����java���Դ����ŵ���ͨ2016+��Ŀʵѵ����ǳ��Java�ķ���
+Java Servlet �������Java Servlet �������java��ѧϰ�ܽ�FileReader��ȡ�ļ�����Java��֮IO����ʹ��FileWriter��FileReaderʵ�ֿ����ļ�
+
+ 
+�ر�
+
+�鿴����
+2¥ Ordosbxy 2011-01-21 09:20���� [�ظ�]
+
+[e01]
+1¥ duyaxiaoyu 2010-09-03 12:02���� [�ظ�]
+
+[e01]
+��û�е�¼,��[��¼]��[ע��]
+* �����û�����ֻ�������˹۵㣬�����CSDN��վ�Ĺ۵������
+���ļ�����Ŀ
+ȫ������ Hadoop AWS �ƶ���Ϸ Java Android iOS Swift ����Ӳ�� Docker OpenStack VPN Spark ERP IE10 Eclipse CRM JavaScript ��ݿ� Ubuntu NFC WAP jQuery BI HTML5 Spring Apache .NET API HTML SDK IIS Fedora XML LBS Unity Splashtop UML components Windows Mobile Rails QEMU KDE Cassandra CloudStack FTC coremail OPhone CouchBase �Ƽ��� iOS6 Rackspace Web App SpringSide Maemo Compuware ����� aptech Perl Tornado Ruby Hibernate ThinkPHP HBase Pure Solr Angular Cloud Foundry Redis Scala Django Bootstrap
+��������
+ �����ҵĿռ� 
+miyuki0424
+ 
+���ʣ�53071��
+��֣�583
+�ȼ��� 
+����ǧ��֮��
+ԭ����13ƪת�أ�0ƪ���ģ�0ƪ���ۣ�3��
+��������
+
+����
+���·���
+ѧϰ�Ǽ����������(10)
+��˼(3)
+��˼��������(0)
+������(3)
+���´浵
+2005��11��(1)
+2005��09��(2)
+2005��08��(1)
+2005��07��(2)
+2005��03��(2)
+չ��
+�Ķ�����
+ʹ��FileReader��FileWriter��ȡд���ļ�����(32813)
+�и����質�ң������ҡ�������(4625)
+win2003����ȫж��oracle9i(2838)
+����ǰһ�������(1548)
+java����ʱ������ѧϰ(1413)
+meta��ǩ(1014)
+��aix�°�װgcc(923)
+struts ��ǩ��(880)
+Spring Framework 1.1.5 Released(850)
+����һֻСС��-����ͯ���(829)
+��������
+ʹ��FileReader��FileWriter��ȡд���ļ�����(2)
+��������fish�Ż���(1)
+����һֻСС��-����ͯ���(0)
+��¼ | ע��
+I love fish
+Ŀ¼��ͼժҪ��ͼ����
+�����˵ĳ��ʱ�̣�24�������з������ڵ���      ����Ա2����Ѷ     �����н��ʴ�--һ���趯���ŵ�iOS����
+ ʹ��FileReader��FileWriter��ȡд���ļ�����
+��ǩ�� bufferstringfileexceptionimportclass
+2005-03-02 15:20 32838���Ķ� ����(2) �ղ� �ٱ�
+ ���ࣺ ѧϰ�Ǽ���������飨9��  
+��Ȩ����������Ϊ����ԭ�����£�δ���������?��ת�ء�
+
+Java �е��ֽ�������ֱ�Ӳ���Unicode�ַ�Ҫ��ֱ�Ӳ����ַ�����/���Ҫʹ�ü����ַ�����/����ࡣ
+
+�ַ�����νṹ�Ķ�����Reader��Writer�����ࡣ
+
+1��Reader
+
+    Reader�Ƕ���java����ʽ�ַ�����ģʽ�ĳ����ࡣ�����쳣ΪIOException��
+
+    ��Ҫ�����У�
+
+    abstract  void  close() �ر����������رպ��ȡ�������IOException�쳣��
+
+    void  mark(int numChars) ���������ĵ�ǰλ������һ����־������������numChars���ַ��ȡǰ��Ч��
+
+    boolean markSupported() ����֧��mark()/reset()�򷵻�true��
+
+    int read() �����õ�����������һ���ַ�ɶ��򷵻�һ�����ͣ��ļ�β����-1��
+
+    int read(char buffer[ ]) ��ͼ��ȡbuffe�е�buffer.length���ַ���ʵ�ʳɹ���ȡ���ַ����ļ�β����-1��
+
+    abstract int read (char buffer[ ], int offset, int numChars) ��ͼ��ȡbuffer�д�buffer[offset]��ʼ�� numChars���ַ���ʵ�ʳɹ���ȡ���ַ����ļ�β����-1��
+
+    void reset()  ��������ָ�뵽��ǰ�����ı�־����
+
+    long skip (long numChars) ���numChars �������ַ��������ַ���
+
+2��writer
+
+    writer �Ƕ�����ʸ�ַ�����ĳ����ࡣ���и���ķ���������һ��voidֵ���ڳ�����������һ��IOException�쳣��
+
+    ��Ҫ������
+
+    abstract void close()  �ر���������رպ��д������IOException�쳣��
+
+    abstract void flush(0  �������״̬��ʹÿ���������������Ҳ����ˢ�»��塣
+
+    void  write(int ch) �������д�뵥���ַ������һ�����ͣ����Բ��ذѲ���ת�����ַ��;Ϳ��Ե��á�
+
+    void write (char buffer[ ]) ��һ�������д��һ��������ַ����顣
+
+    abstract void write (char buffer[ ], int offset ,int numChars)  ����õ������д������buffer ��buffer[offset]Ϊ����numChars���ַ������ڵ����ݡ�
+
+    void write(String str)  ����õ������дstr��
+
+    void write (String str, int offset, int numChars) д����str�����ƶ���offsetΪ���ĳ���ΪnumChars���ַ������ڵ����ݡ�
+
+3��FileReader
+
+    FileReader�ഴ����һ�����Զ�ȡ�ļ����ݵ�Reader�ࡣ��Ĺ��캯��
+
+    FileReader (String filePath)  filePath ��һ���ļ�������·��
+
+    FileReader(File fileObj)  fileObj ���������ļ���File����
+
+    ����FileNotFoundException�쳣��
+
+    ���磬��һ���ļ����ж�ȡ�������������׼��������
+
+    import  java.io.*;
+
+    class FileReaderDemo {
+
+        public static void main (String args[ ] ) throws Exception {
+
+            FileReader fr =  new FileReader ("c://in.txt");
+
+            BufferedReader br = new BufferedReader (fr);
+
+            String s;
+
+             while ((s = br.readLine() )!=null) {
+
+                 System.out.prinln (s);
+
+              }
+
+            fr.close();
+
+      }
+
+    }
+
+4��FileWriter
+
+    FileWriter ����һ������д�ļ���Writer�ࡣ���캯��
+
+    FileWriter (String filePath)  filePath ��һ���ļ�������·��
+
+    FileWriter(String filePath, boolean append)  ���appendΪtrue ,����Ǹ��ӵ��ļ�β�ġ�
+
+    FileWriter(File fileObj)  ���������ļ���File����
+
+    ���磬������һ�����ַ��������ʼ���һ��String��Ȼ����getChars()������ȡ�ַ����顣Ȼ�󴴽��� ����ļ���file1.txt�������еĸ����ַ�file2.txt�����е��ַ�file2.txt�������ķ�֮һ��
+
+    import  java.io.*;
+
+    class FileWriterDemo {
+
+        public static void  main (String args[ ]) throws Exception {
+
+            String source = "learn how to write to file";
+
+            FileWriter  f1 = new FileWriter("file1.txt");
+
+            for  (int i=0; i<buffer.length; i +=2) {
+
+                f1.write (buffer[i]);
+
+             }
+
+            fo.close();
+
+             FileWriter f2 = new FileWriter("file2.txt");
+
+            f2.write(buffer);
+
+            f2.close();
+
+            FileWriter  f3 = new FileWriter ("file3.txt");
+
+            f2.write(buffer,buffer.length-buffer.length/4, buffer.length/4);
+
+        }
+
+}
+
+��
+0
+��
+0
+ 
+ 
+��һƪSpring Framework 1.1.5 Released
+��һƪ��������fish�Ż���
+�ҵ�ͬ������
+ѧϰ�Ǽ���������飨9��
+?Jbuilder ����ʧ�ܣ���ԭ��2005-09-27�Ķ�744
+?struts ��ǩ��2005-07-20�Ķ�880
+?ѧϰSpring Framework�ļ�¼��1��2005-02-28�Ķ�701
+?java����ʱ������ѧϰ2005-02-24�Ķ�1412
+?��aix�°�װgcc2005-01-05�Ķ�923
+?meta��ǩ2005-08-05�Ķ�1014
+?Spring Framework 1.1.5 Released2005-03-01�Ķ�850
+?����ǰһ�������2005-02-25�Ķ�1547
+?win2003����ȫж��oracle9i2005-01-05�Ķ�2837
+
+ 
+�ο�֪ʶ��
+img
+Java SE֪ʶ��
+23310��ע|468��¼
+img
+Java EE֪ʶ��
+15606��ע|1260��¼
+img
+Java ֪ʶ��
+23518��ע|1449��¼
+��������
+����Javascript ���ڶ���(Date)��Ƶ�γ�����Javascript Object(����)��Ƶ�̳�JavaScript�������ı����Ƶ�γ̵ڶ��� ����java���Դ����ŵ���ͨ2016+��Ŀʵѵ����ǳ��Java�ķ���
+Java Servlet �������Java Servlet �������java��ѧϰ�ܽ�FileReader��ȡ�ļ�����Java��֮IO����ʹ��FileWriter��FileReaderʵ�ֿ����ļ�
+
+ 
+�ر�
+
+�鿴����
+2¥ Ordosbxy 2011-01-21 09:20���� [�ظ�]
+
+[e01]
+1¥ duyaxiaoyu 2010-09-03 12:02���� [�ظ�]
+
+[e01]
+��û�е�¼,��[��¼]��[ע��]
+* �����û�����ֻ�������˹۵㣬�����CSDN��վ�Ĺ۵������
+���ļ�����Ŀ
+ȫ������ Hadoop AWS �ƶ���Ϸ Java Android iOS Swift ����Ӳ�� Docker OpenStack VPN Spark ERP IE10 Eclipse CRM JavaScript ��ݿ� Ubuntu NFC WAP jQuery BI HTML5 Spring Apache .NET API HTML SDK IIS Fedora XML LBS Unity Splashtop UML components Windows Mobile Rails QEMU KDE Cassandra CloudStack FTC coremail OPhone CouchBase �Ƽ��� iOS6 Rackspace Web App SpringSide Maemo Compuware ����� aptech Perl Tornado Ruby Hibernate ThinkPHP HBase Pure Solr Angular Cloud Foundry Redis Scala Django Bootstrap
+��������
+ �����ҵĿռ� 
+miyuki0424
+ 
+���ʣ�53071��
+��֣�583
+�ȼ��� 
+����ǧ��֮��
+ԭ����13ƪת�أ�0ƪ���ģ�0ƪ���ۣ�3��
+��������
+
+����
+���·���
+ѧϰ�Ǽ����������(10)
+��˼(3)
+��˼��������(0)
+������(3)
+���´浵
+2005��11��(1)
+2005��09��(2)
+2005��08��(1)
+2005��07��(2)
+2005��03��(2)
+չ��
+�Ķ�����
+ʹ��FileReader��FileWriter��ȡд���ļ�����(32813)
+�и����質�ң������ҡ�������(4625)
+win2003����ȫж��oracle9i(2838)
+����ǰһ�������(1548)
+java����ʱ������ѧϰ(1413)
+meta��ǩ(1014)
+��aix�°�װgcc(923)
+struts ��ǩ��(880)
+Spring Framework 1.1.5 Released(850)
+����һֻСС��-����ͯ���(829)
+��������
+ʹ��FileReader��FileWriter��ȡд���ļ�����(2)
+��������fish�Ż���(1)
+����һֻСС��-����ͯ���(0)
+meta��ǩ(0)
+struts ��ǩ��(0)
+Spring Framework 1.1.5 Released(0)
+ѧϰSpring Framework�ļ�¼��1��(0)
+����ǰһ�������(0)
+java����ʱ������ѧϰ(0)
+win2003����ȫж��oracle9i(0)
+�Ƽ�����
+* CSDN�ձ�20170225����������������ġ�
+* Android"�ұ�"����֮��---�������ں�������Ϣ������������Ϣ����Զ���ԭ��
+* ��������������벩��
+* ���ӿ�Android��Ŀ�ܹ��ݽ�
+* Apk�ѿ�ʥս֮---����ѵ������ӹ̡��ı�����
+��������
+ʹ��FileReader��FileWriter��ȡд���ļ�����
+Ordosbxy:
+ʹ��FileReader��FileWriter��ȡд���ļ�����
+duyaxiaoyu:
+��������fish�Ż���
+twent: ���� ��ȥ�ѹ���Ʈȥ���ú���һ��ɣ�ʲôʱ��ϲ�ǰ�
+��ϲ����blog
+http://blog.csdn.net/zlhg/ (RSS)
+
+��˾���|������ʿ|������|��ϵ��ʽ|��Ȩ����|���ɹ���|���ⱨ��|�������|��̳����
+��վ�ͷ���־�ͷ�΢���ͷ�webmaster@csdn.net400-600-2320|����������֪��Ϣ�������޹�˾ ��Ȩ����|����֪֮Ϊ��������޹�˾|������֪���缼�����޹�˾
+�� ICP ֤ 09002463 ��|Copyright ? 1999-2016, CSDN.NET, All Rights Reserved GongshangLogo
+
+
+��¼ | ע��
+I love fish
+Ŀ¼��ͼժҪ��ͼ����
+�����˵ĳ��ʱ�̣�24�������з������ڵ���      ����Ա2����Ѷ     �����н��ʴ�--һ���趯���ŵ�iOS����
+ ʹ��FileReader��FileWriter��ȡд���ļ�����
+��ǩ�� bufferstringfileexceptionimportclass
+2005-03-02 15:20 32838���Ķ� ����(2) �ղ� �ٱ�
+ ���ࣺ ѧϰ�Ǽ���������飨9��  
+��Ȩ����������Ϊ����ԭ�����£�δ���������?��ת�ء�
+
+Java �е��ֽ�������ֱ�Ӳ���Unicode�ַ�Ҫ��ֱ�Ӳ����ַ�����/���Ҫʹ�ü����ַ�����/����ࡣ
+
+�ַ�����νṹ�Ķ�����Reader��Writer�����ࡣ
+
+1��Reader
+
+    Reader�Ƕ���java����ʽ�ַ�����ģʽ�ĳ����ࡣ�����쳣ΪIOException��
+
+    ��Ҫ�����У�
+
+    abstract  void  close() �ر����������رպ��ȡ�������IOException�쳣��
+
+    void  mark(int numChars) ���������ĵ�ǰλ������һ����־������������numChars���ַ��ȡǰ��Ч��
+
+    boolean markSupported() ����֧��mark()/reset()�򷵻�true��
+
+    int read() �����õ�����������һ���ַ�ɶ��򷵻�һ�����ͣ��ļ�β����-1��
+
+    int read(char buffer[ ]) ��ͼ��ȡbuffe�е�buffer.length���ַ���ʵ�ʳɹ���ȡ���ַ����ļ�β����-1��
+
+    abstract int read (char buffer[ ], int offset, int numChars) ��ͼ��ȡbuffer�д�buffer[offset]��ʼ�� numChars���ַ���ʵ�ʳɹ���ȡ���ַ����ļ�β����-1��
+
+    void reset()  ��������ָ�뵽��ǰ�����ı�־����
+
+    long skip (long numChars) ���numChars �������ַ��������ַ���
+
+2��writer
+
+    writer �Ƕ�����ʸ�ַ�����ĳ����ࡣ���и���ķ���������һ��voidֵ���ڳ�����������һ��IOException�쳣��
+
+    ��Ҫ������
+
+    abstract void close()  �ر���������رպ��д������IOException�쳣��
+
+    abstract void flush(0  �������״̬��ʹÿ���������������Ҳ����ˢ�»��塣
+
+    void  write(int ch) �������д�뵥���ַ������һ�����ͣ����Բ��ذѲ���ת�����ַ��;Ϳ��Ե��á�
+
+    void write (char buffer[ ]) ��һ�������д��һ��������ַ����顣
+
+    abstract void write (char buffer[ ], int offset ,int numChars)  ����õ������д������buffer ��buffer[offset]Ϊ����numChars���ַ������ڵ����ݡ�
+
+    void write(String str)  ����õ������дstr��
+
+    void write (String str, int offset, int numChars) д����str�����ƶ���offsetΪ���ĳ���ΪnumChars���ַ������ڵ����ݡ�
+
+3��FileReader
+
+    FileReader�ഴ����һ�����Զ�ȡ�ļ����ݵ�Reader�ࡣ��Ĺ��캯��
+
+    FileReader (String filePath)  filePath ��һ���ļ�������·��
+
+    FileReader(File fileObj)  fileObj ���������ļ���File����
+
+    ����FileNotFoundException�쳣��
+
+    ���磬��һ���ļ����ж�ȡ�������������׼��������
+
+    import  java.io.*;
+
+    class FileReaderDemo {
+
+        public static void main (String args[ ] ) throws Exception {
+
+            FileReader fr =  new FileReader ("c://in.txt");
+
+            BufferedReader br = new BufferedReader (fr);
+
+            String s;
+
+             while ((s = br.readLine() )!=null) {
+
+                 System.out.prinln (s);
+
+              }
+
+            fr.close();
+
+      }
+
+    }
+
+4��FileWriter
+
+    FileWriter ����һ������д�ļ���Writer�ࡣ���캯��
+
+    FileWriter (String filePath)  filePath ��һ���ļ�������·��
+
+    FileWriter(String filePath, boolean append)  ���appendΪtrue ,����Ǹ��ӵ��ļ�β�ġ�
+
+    FileWriter(File fileObj)  ���������ļ���File����
+
+    ���磬������һ�����ַ��������ʼ���һ��String��Ȼ����getChars()������ȡ�ַ����顣Ȼ�󴴽��� ����ļ���file1.txt�������еĸ����ַ�file2.txt�����е��ַ�file2.txt�������ķ�֮һ��
+
+    import  java.io.*;
+
+    class FileWriterDemo {
+
+        public static void  main (String args[ ]) throws Exception {
+
+            String source = "learn how to write to file";
+
+            FileWriter  f1 = new FileWriter("file1.txt");
+
+            for  (int i=0; i<buffer.length; i +=2) {
+
+                f1.write (buffer[i]);
+
+             }
+
+            fo.close();
+
+             FileWriter f2 = new FileWriter("file2.txt");
+
+            f2.write(buffer);
+
+            f2.close();
+
+            FileWriter  f3 = new FileWriter ("file3.txt");
+
+            f2.write(buffer,buffer.length-buffer.length/4, buffer.length/4);
+
+        }
+
+}
+
+��
+0
+��
+0
+ 
+ 
+��һƪSpring Framework 1.1.5 Released
+��һƪ��������fish�Ż���
+�ҵ�ͬ������
+ѧϰ�Ǽ���������飨9��
+?Jbuilder ����ʧ�ܣ���ԭ��2005-09-27�Ķ�744
+?struts ��ǩ��2005-07-20�Ķ�880
+?ѧϰSpring Framework�ļ�¼��1��2005-02-28�Ķ�701
+?java����ʱ������ѧϰ2005-02-24�Ķ�1412
+?��aix�°�װgcc2005-01-05�Ķ�923
+?meta��ǩ2005-08-05�Ķ�1014
+?Spring Framework 1.1.5 Released2005-03-01�Ķ�850
+?����ǰһ�������2005-02-25�Ķ�1547
+?win2003����ȫж��oracle9i2005-01-05�Ķ�2837
+
+ 
+�ο�֪ʶ��
+img
+Java SE֪ʶ��
+23310��ע|468��¼
+img
+Java EE֪ʶ��
+15606��ע|1260��¼
+img
+Java ֪ʶ��
+23518��ע|1449��¼
+��������
+����Javascript ���ڶ���(Date)��Ƶ�γ�����Javascript Object(����)��Ƶ�̳�JavaScript�������ı����Ƶ�γ̵ڶ��� ����java���Դ����ŵ���ͨ2016+��Ŀʵѵ����ǳ��Java�ķ���
+Java Servlet �������Java Servlet �������java��ѧϰ�ܽ�FileReader��ȡ�ļ�����Java��֮IO����ʹ��FileWriter��FileReaderʵ�ֿ����ļ�
+
+ 
+�ر�
+
+�鿴����
+2¥ Ordosbxy 2011-01-21 09:20���� [�ظ�]
+
+[e01]
+1¥ duyaxiaoyu 2010-09-03 12:02���� [�ظ�]
+
+[e01]
+��û�е�¼,��[��¼]��[ע��]
+* �����û�����ֻ�������˹۵㣬�����CSDN��վ�Ĺ۵������
+���ļ�����Ŀ
+ȫ������ Hadoop AWS �ƶ���Ϸ Java Android iOS Swift ����Ӳ�� Docker OpenStack VPN Spark ERP IE10 Eclipse CRM JavaScript ��ݿ� Ubuntu NFC WAP jQuery BI HTML5 Spring Apache .NET API HTML SDK IIS Fedora XML LBS Unity Splashtop UML components Windows Mobile Rails QEMU KDE Cassandra CloudStack FTC coremail OPhone CouchBase �Ƽ��� iOS6 Rackspace Web App SpringSide Maemo Compuware ����� aptech Perl Tornado Ruby Hibernate ThinkPHP HBase Pure Solr Angular Cloud Foundry Redis Scala Django Bootstrap
+��������
+ �����ҵĿռ� 
+miyuki0424
+ 
+���ʣ�53071��
+��֣�583
+�ȼ��� 
+����ǧ��֮��
+ԭ����13ƪת�أ�0ƪ���ģ�0ƪ���ۣ�3��
+��������
+
+����
+���·���
+ѧϰ�Ǽ����������(10)
+��˼(3)
+��˼��������(0)
+������(3)
+���´浵
+2005��11��(1)
+2005��09��(2)
+2005��08��(1)
+2005��07��(2)
+2005��03��(2)
+չ��
+�Ķ�����
+ʹ��FileReader��FileWriter��ȡд���ļ�����(32813)
+�и����質�ң������ҡ�������(4625)
+win2003����ȫж��oracle9i(2838)
+����ǰһ�������(1548)
+java����ʱ������ѧϰ(1413)
+meta��ǩ(1014)
+��aix�°�װgcc(923)
+struts ��ǩ��(880)
+Spring Framework 1.1.5 Released(850)
+����һֻСС��-����ͯ���(829)
+��������
+ʹ��FileReader��FileWriter��ȡд���ļ�����(2)
+��������fish�Ż���(1)
+����һֻСС��-����ͯ���(0)
+meta��ǩ(0)
+struts ��ǩ��(0)
+Spring Framework 1.1.5 Released(0)
+ѧϰSpring Framework�ļ�¼��1��(0)
+����ǰһ�������(0)
+java����ʱ������ѧϰ(0)
+win2003����ȫж��oracle9i(0)
+�Ƽ�����
+* CSDN�ձ�20170225����������������ġ�
+* Android"�ұ�"����֮��---�������ں�������Ϣ������������Ϣ����Զ���ԭ��
+* ��������������벩��
+* ���ӿ�Android��Ŀ�ܹ��ݽ�
+* Apk�ѿ�ʥս֮---����ѵ������ӹ̡��ı�����
+��������
+ʹ��FileReader��FileWriter��ȡд���ļ�����
+Ordosbxy:
+ʹ��FileReader��FileWriter��ȡд���ļ�����
+duyaxiaoyu:
+��������fish�Ż���
+twent: ���� ��ȥ�ѹ���Ʈȥ���ú���һ��ɣ�ʲôʱ��ϲ�ǰ�
+��ϲ����blog
+http://blog.csdn.net/zlhg/ (RSS)
+
+��˾���|������ʿ|������|��ϵ��ʽ|��Ȩ����|���ɹ���|���ⱨ��|�������|��̳����
+��վ�ͷ���־�ͷ�΢���ͷ�webmaster@csdn.net400-600-2320|����������֪��Ϣ�������޹�˾ ��Ȩ����|����֪֮Ϊ��������޹�˾|������֪���缼�����޹�˾
+�� ICP ֤ 09002463 ��|Copyright ? 1999-2016, CSDN.NET, All Rights Reserved GongshangLogo
+
+
+meta��ǩ(0)
+struts ��ǩ��(0)
+Spring Framework 1.1.5 Released(0)
+ѧϰSpring Framework�ļ�¼��1��(0)
+����ǰһ�������(0)
+java����ʱ������ѧϰ(0)
+win2003����ȫж��oracle9i(0)
+�Ƽ�����
+* CSDN�ձ�20170225����������������ġ�
+* Android"�ұ�"����֮��---�������ں�������Ϣ������������Ϣ����Զ���ԭ��
+* ��������������벩��
+* ���ӿ�Android��Ŀ�ܹ��ݽ�
+* Apk�ѿ�ʥս֮---����ѵ������ӹ̡��ı�����
+��������
+ʹ��FileReader��FileWriter��ȡд���ļ�����
+Ordosbxy:
+ʹ��FileReader��FileWriter��ȡд���ļ�����
+duyaxiaoyu:
+��������fish�Ż���
+twent: ���� ��ȥ�ѹ���Ʈȥ���ú���һ��ɣ�ʲôʱ��ϲ�ǰ�
+��ϲ����blog
+http://blog.csdn.net/zlhg/ (RSS)
+
+��˾���|������ʿ|������|��ϵ��ʽ|��Ȩ����|���ɹ���|���ⱨ��|�������|��̳����
+��վ�ͷ���־�ͷ�΢���ͷ�webmaster@csdn.net400-600-2320|����������֪��Ϣ�������޹�˾ ��Ȩ����|����֪֮Ϊ��������޹�˾|������֪���缼�����޹�˾
+�� ICP ֤ 09002463 ��|Copyright ? 1999-2016, CSDN.NET, All Rights Reserved GongshangLogo
+

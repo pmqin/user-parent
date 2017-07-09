@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/jdbc 
+	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 配置数据源 使用的是Druid数据源 -->
+	<!-- <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		初始化连接大小
+		<property name="initialSize" value="0" />
+		连接池最大使用连接数量
+		<property name="maxActive" value="20" />
+
+		连接池最小空闲
+		<property name="minIdle" value="0" />
+		获取连接最大等待时间
+		<property name="maxWait" value="60000" />
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="33" />
+		用来检测有效sql
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+		配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		配置一个连接在池中最小生存的时间，单位是毫秒
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+		打开removeAbandoned功能
+		<property name="removeAbandoned" value="true" />
+		1800秒，也就是30分钟
+		<property name="removeAbandonedTimeout" value="1800" />
+		关闭abanded连接时输出错误日志
+		<property name="logAbandoned" value="true" />
+		监控数据库
+		<property name="filters" value="mergeStat" />
+	</bean> -->
+<!-- 配置数据源 使用的是c3p0数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>jdbc:mysql://localhost:3306/test</value>
+		</property>
+		<property name="user">
+			<value>sa</value>
+		</property>
+		<property name="password">
+			<value>123456</value>
+		</property>
+		<property name="minPoolSize" value="10"></property>
+		<property name="maxPoolSize" value="100"></property>
+		<property name="maxIdleTime" value="600"></property>
+		<property name="acquireIncrement" value="3" />
+		<property name="maxStatements" value="1000" />
+		<property name="initialPoolSize" value="10" />
+		<property name="idleConnectionTestPeriod" value="60" />
+	</bean>
+
+
+	<!-- myBatis文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 		 <property name="plugins">   -->
+<!--             <ref bean="paginationInterceptor"/>   -->
+<!--         </property>   -->
+		<!-- 自动扫描SQL映射的xml文件, 省掉Configuration.xml里的手工配置 -->
+		<!-- 		 <property name="configLocation" value="classpath:com/cn/pmqin/mapping/*.xml" /> -->
+		<property name="mapperLocations" value="classpath:com/cn/pmqin/mapping/*.xml" />
+
+
+	</bean>
+
+<!-- 原始的DAO接口必须继承sqlSessionFactorySupput接口 -->
+<!--      <bean id="userDao" class="com.cn.pmqin.imp.UserServiceImp">		 -->
+<!-- 		<property name="sqlSessionFactory" value="sqlSessionFactory" /> 就是初始化SqlSessionFactory数据库链接-->
+<!-- 	</bean> -->
+
+
+<!--   该节点用来查找数据层包中的接口文件，需要对DB接口类的扫描.,并不一定要配置文件的命名空间是dao层的命名空间，只要这里对应了就行 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.cn.pmqin.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 注解方式配置事物 -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+
+	<!-- 拦截器方式配置事物 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+
+		</tx:attributes>
+	</tx:advice>
+	<!-- Spring aop事务管理 -->
+	<aop:config>
+		<aop:pointcut id="transactionPointcut"
+			expression="execution(* com.cn.pmqin.imp..*Imp.*(..))" />
+		<aop:advisor pointcut-ref="transactionPointcut"
+			advice-ref="transactionAdvice" />
+	</aop:config>
+
+	<!-- "execution(public * com.lei.demo.aop.aspectj.CustomerBo.addCustomer(..))"是Aspect的切入点表达式，其中，*代表返回类型，后边的就要定义要拦截的方法名，这里写的的是com.lei.demo.aop.aspectj.CustomerBo.addCustomer表示拦截CustomerBo中的addCustomer方法，(..)代表参数匹配，此处表示匹配任意数量的参数，可以是0个也可以是多个，如果你确定这个方法不需要使用参数可以直接用()，还可以使用(*)来匹配一个任意类型的参数， -->
+	<!-- 还可以使用 (* , String)，这样代表匹配两个参数，第二个参数必须是String 类型的参数 -->
+	<!-- 配置druid监控spring jdbc -->
+	<bean id="druid-stat-interceptor"
+		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+	</bean>
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+		scope="prototype">
+		<property name="patterns">
+			<list>
+				<value>com.cn.pmqin.imp.*</value>
+			</list>
+		</property>
+	</bean>
+	<aop:config>
+		<aop:advisor advice-ref="druid-stat-interceptor"
+			pointcut-ref="druid-stat-pointcut" />
+	</aop:config>
+</beans>

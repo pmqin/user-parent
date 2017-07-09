@@ -1,0 +1,98 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+ 
+    <bean id="helloBean" class="com.cn.pmqin.Model.HelloWorld">
+<!--     缩写给Bean属性注入value -->
+        <property name="name" value="pmqin" />       
+    </bean>
+    <!--  ”p” schema  注意增加这个  xmlns:p="http://www.springframework.org/schema/p" -->
+    <bean id="helloBeanp" class="com.cn.pmqin.Model.HelloWorld" scope="prototype"
+             p:name="namepmqinp323" /> 
+ 
+    <!--可以用’ref’属性引用Person的Bean -->
+    <!-- <bean id="CustomerBean" class="com.cn.pmqin.Model.Customer">
+        <property name="person" ref="PersonBean" />
+    </bean> -->
+    <bean id="PersonBean" class="com.cn.pmqin.Model.Person"  lazy-init="true"  init-method="init"  destroy-method="destroy">
+        <property name="name" value="lei" />
+        <property name="address" value="address1" />
+        <property name="age" value="28" />
+    </bean>
+    
+<!--     在Customer的bean中声明一个内部Bean -->
+<!--     <bean id="CustomerBean2" class="com.cn.pmqin.Model.Customer"> -->
+<!--         <property name="person"> -->
+<!--             <bean class="com.cn.pmqin.Model.Person"> -->
+<!--                 <property name="name" value="lei" /> -->
+<!--                 <property name="address" value="address1" /> -->
+<!--                 <property name="age" value="28" /> -->
+<!--             </bean> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     内部Bean也可以通过构造函数注入 -->
+    <bean id="CustomerBean3" class="com.cn.pmqin.Model.Customer" scope="prototype">
+        <constructor-arg>
+            <bean class="com.cn.pmqin.Model.Person">
+                <property name="name" value="lei" />
+                <property name="address" value="address1" />
+                <property name="age" value="28" />
+            </bean>
+        </constructor-arg>
+        
+    </bean>
+<!--     Spring Collections（List、Set、Map、Properties） — 集合类型的Bean -->
+    <bean id="CustomerBean" class="com.cn.pmqin.Model.MCustomer">
+        <!-- java.util.List -->
+        <property name="lists">
+            <list>
+                <value>1</value>
+                <ref bean="PersonBean" />
+                <bean class="com.cn.pmqin.Model.Person">
+                    <property name="name" value="leiList" />
+                    <property name="address" value="address" />
+                    <property name="age" value="28" />
+                </bean>
+            </list>
+        </property>
+
+        <!-- java.util.Set -->
+        <property name="sets">
+            <set>
+                <value>1</value>
+                <ref bean="PersonBean" />
+                <bean class="com.cn.pmqin.Model.Person">
+                    <property name="name" value="leiSet" />
+                    <property name="address" value="address" />
+                    <property name="age" value="28" />
+                </bean>
+            </set>
+        </property>
+     <!-- java.util.Map -->
+        <property name="maps">
+            <map>
+                <entry key="Key 1" value="1" />
+                <entry key="Key 2" value-ref="PersonBean" />
+                <entry key="Key 3">
+                    <bean class="com.cn.pmqin.Model.Person">
+                        <property name="name" value="leiMap" />
+                        <property name="address" value="address" />
+                        <property name="age" value="28" />
+                    </bean>
+                </entry>
+            </map>
+        </property>
+ 
+        <!-- java.util.Properties -->
+        <property name="pros">
+            <props>
+                <prop key="admin">admin@nospam.com</prop>
+                <prop key="support">support@nospam.com</prop>
+            </props>
+        </property>
+    </bean>
+    
+    
+</beans>

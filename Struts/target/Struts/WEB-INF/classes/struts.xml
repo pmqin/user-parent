@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC  
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- namespace="/" 表示当前webapp 根目录 -->
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+
+			<interceptor name="printMessageInterceptor"
+				class="com.cn.qin.interceptor.PrintMessageInterceptor">
+			</interceptor>
+
+			<interceptor-stack name="newStack">
+				<interceptor-ref name="printMessageInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+
+		</interceptors>
+
+
+<!-- http://localhost:8080/Struts/helloAction -->
+		<action name="helloAction" class="com.cn.qin.action.HelloAction">
+			<interceptor-ref name="newStack" />
+			<result>filter/hello.jsp</result>
+		</action>
+
+
+		<action name="Login">
+			<result>index.jsp</result>
+		</action>
+		<action name="Welcome" class="com.cn.qin.UserAction">
+			<result name="SUCCESS">welcome.jsp</result>
+			<result name="LOGIN">index.jsp</result>
+		</action>
+	</package>
+
+</struts>  

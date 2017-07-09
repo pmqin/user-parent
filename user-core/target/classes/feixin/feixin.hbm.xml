@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- 
+    Mapping file 
+-->
+<hibernate-mapping>
+    <class name="com.cn.pmqin.user.model.User" table="User" catalog="test2">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="mobileNo" type="java.lang.String">
+            <column name="MobileNo" length="20" />
+        </property>
+        <property name="userName" type="java.lang.String">
+            <column name="userName" length="20" />
+        </property>
+        <property name="adderName" type="java.lang.String">
+            <column name="adderName" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

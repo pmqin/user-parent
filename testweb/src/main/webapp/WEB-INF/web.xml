@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+  <context-param>
+    <param-name>qin</param-name>
+    <param-value>2133</param-value>
+  </context-param>
+  <listener>
+    <listener-class>pmqin.servlet.MyServletContextListenter</listener-class>
+  </listener>
+  <listener>
+    <listener-class>pmqin.servlet.MyServletContextAttributeListenter</listener-class>
+  </listener>
+  <listener>
+    <listener-class>pmqin.servlet.ServletRequestListerter</listener-class>
+  </listener>
+  <listener>
+    <listener-class>pmqin.servlet.ServletRequestAttributeListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>pmqin.servlet.SessionCounter</listener-class>
+  </listener>
+  <listener>
+    <listener-class>pmqin.servlet.MyAsyncListener</listener-class>
+  </listener>
+  
+
+     <!--用来启动 log4jConfigLocation的servlet -->  
+    <servlet>  
+        <servlet-name>Log4JInitServlet</servlet-name>  
+        <servlet-class>pmqin.servlet.Log4JInitServlet</servlet-class>  
+        <init-param>  
+            <param-name>log4j-properties-location</param-name>  
+            <param-value>/WEB-INF/classes/log4j.properties</param-value>  
+        </init-param>  
+        <load-on-startup>1</load-on-startup>  
+    </servlet> 
+
+    <servlet-mapping>  
+        <servlet-name>Log4JInitServlet</servlet-name>  
+        <url-pattern>/testlog</url-pattern>  
+    </servlet-mapping>  
+  <servlet>
+  
+  
+    <servlet-name>Hello</servlet-name>
+    <servlet-class>pmqin.servlet.Hello</servlet-class>
+    <init-param>
+      <param-name>qinpengming</param-name>
+      <param-value>qinpengming avalible in servletinit()</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>pmqin.servlet.HelloServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SessionTest</servlet-name>
+    <servlet-class>pmqin.servlet.SessionTest</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>WebInitParamServlet</servlet-name>
+    <servlet-class>pmqin.servlet.WebInitParamServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AsyncServlet</servlet-name>
+    <servlet-class>pmqin.servlet.AsyncServlet</servlet-class>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/hello.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Hello</servlet-name>
+    <url-pattern>/Hello</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SessionTest</servlet-name>
+    <url-pattern>/SessionTest</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WebInitParamServlet</servlet-name>
+    <url-pattern>/WebInitParamServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AsyncServlet</servlet-name>
+    <url-pattern>/AsyncServlet</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>1</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>sessiontest.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

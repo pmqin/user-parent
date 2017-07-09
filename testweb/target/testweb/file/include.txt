@@ -1,0 +1,1 @@
+﻿Test include function  注意这个只是用于静态的文件，如果用动态的请使用jsp:include标签

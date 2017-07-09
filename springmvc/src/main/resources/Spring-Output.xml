@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="OutputHelper" class="com.cn.pmqin.ServiceFactory.ServiceFactory">
+		<!-- 引用不同xml配置文件中的bean -->
+		<property name="outputGenerator" ref="CsvOutputGenerator" />
+		<!-- 引用相同xml配置文件中的bean，其实就是属性赋值 
+		<property name="outputGenerator" > <ref 
+			local="CsvOutputGenerator"/> </property> -->
+
+
+	</bean>
+
+	<!-- 嵌套内部Bean -->
+	<bean id="OutputHelper1" class="com.cn.pmqin.ServiceFactory.ServiceFactory" >
+		<property name="outputGenerator">
+			<bean class="com.cn.pmqin.Imp.CsvOutputGenerator"/>
+			
+		</property>
+	</bean>
+	<bean id="CsvOutputGenerator" class="com.cn.pmqin.Imp.CsvOutputGenerator" />
+	<bean id="JsonOutputGenerator" class="com.cn.pmqin.Imp.JsonOutputGenerator" />
+
+
+</beans>

@@ -1,0 +1,756 @@
+
+登录 | 注册
+I love fish
+目录视图摘要视图订阅
+技术人的充电时刻，24个精彩研发案例在等你      程序员2月书讯     社区有奖问答--一起舞动酷炫的iOS动画
+ 使用FileReader和FileWriter读取写入文件内容
+标签： bufferstringfileexceptionimportclass
+2005-03-02 15:20 32838人阅读 评论(2) 收藏 举报
+ 分类： 学习是件辛苦的事情（9）  
+版权声明：本文为博主原创文章，未经博主允许不得转载。
+
+Java 中的字节流不能直接操作Unicode字符，要想直接操作字符输入/输出要使用几个字符输入/输出类。
+
+字符流层次结构的顶层是Reader和Writer抽象类。
+
+1、Reader
+
+    Reader是定义java的流式字符输入模式的抽象类。错误异常为IOException。
+
+    主要方法有：
+
+    abstract  void  close() 关闭输入流，关闭后读取将会产生IOException异常。
+
+    void  mark(int numChars) 在输入流的当前位置设立一个标志。该输入流在numChars个字符被读取前有效。
+
+    boolean markSupported() 该流支持mark()/reset()则返回true。
+
+    int read() 如果调用的输入流的下一个字符可读则返回一个整型，文件尾返回-1。
+
+    int read(char buffer[ ]) 试图读取buffe中的buffer.length个字符，返回实际成功读取的字符数，文件尾返回-1。
+
+    abstract int read (char buffer[ ], int offset, int numChars) 试图读取buffer中从buffer[offset]开始的 numChars个字符，返回实际成功读取的字符数，文件尾返回-1。
+
+    void reset()  设置输入指针到先前设立的标志处。
+
+    long skip (long numChars) 跳过numChars 个输入字符，返回跳过的字符数。
+
+2、writer
+
+    writer 是定义流矢字符输出的抽象类。所有该类的方法都返回一个void值并在出错条件下引发一个IOException异常。
+
+    主要方法：
+
+    abstract void close()  关闭输出流，关闭后的写操作引发IOException异常。
+
+    abstract void flush(0  定制输出状态以使每个缓冲器都被清除。也就是刷新缓冲。
+
+    void  write(int ch) 向输出流写入单个字符。参数是一个整型，可以不必把参数转换成字符型就可以调用。
+
+    void write (char buffer[ ]) 向一个输出流写入一个完整的字符数组。
+
+    abstract void write (char buffer[ ], int offset ,int numChars)  向调用的输出流写入数组buffer 以buffer[offset]为起点的numChars个字符区域内的内容。
+
+    void write(String str)  向调用的输出流写str。
+
+    void write (String str, int offset, int numChars) 写数组str中以制定的offset为起点的长度为numChars个字符区域内的内容。
+
+3、FileReader
+
+    FileReader类创建了一个可以读取文件内容的Reader类。它的构造函数：
+
+    FileReader (String filePath)  filePath 是一个文件的完整路径
+
+    FileReader(File fileObj)  fileObj 是描述该文件的File对象
+
+    均引发FileNotFoundException异常。
+
+    例如，从一个文件逐行读取并把它输出到标准输入流。
+
+    import  java.io.*;
+
+    class FileReaderDemo {
+
+        public static void main (String args[ ] ) throws Exception {
+
+            FileReader fr =  new FileReader ("c://in.txt");
+
+            BufferedReader br = new BufferedReader (fr);
+
+            String s;
+
+             while ((s = br.readLine() )!=null) {
+
+                 System.out.prinln (s);
+
+              }
+
+            fr.close();
+
+      }
+
+    }
+
+4、FileWriter
+
+    FileWriter 创建一个可以写文件的Writer类。构造函数：
+
+    FileWriter (String filePath)  filePath 是一个文件的完整路径
+
+    FileWriter(String filePath, boolean append)  如果append为true ,输出是附加到文件尾的。
+
+    FileWriter(File fileObj)  是描述该文件的File对象
+
+    例如，创建了一个样本字符缓冲器，开始生成一个String，然后用getChars()方法提取字符数组。然后创建了 三个文件，file1.txt包含例子中的隔个字符，file2.txt包含所有的字符，file2.txt包含最后的四分之一。
+
+    import  java.io.*;
+
+    class FileWriterDemo {
+
+        public static void  main (String args[ ]) throws Exception {
+
+            String source = "learn how to write to file";
+
+            FileWriter  f1 = new FileWriter("file1.txt");
+
+            for  (int i=0; i<buffer.length; i +=2) {
+
+                f1.write (buffer[i]);
+
+             }
+
+            fo.close();
+
+             FileWriter f2 = new FileWriter("file2.txt");
+
+            f2.write(buffer);
+
+            f2.close();
+
+            FileWriter  f3 = new FileWriter ("file3.txt");
+
+            f2.write(buffer,buffer.length-buffer.length/4, buffer.length/4);
+
+        }
+
+}
+
+顶
+0
+踩
+0
+ 
+ 
+上一篇Spring Framework 1.1.5 Released
+下一篇还有两周fish才回来
+我的同类文章
+学习是件辛苦的事情（9）
+?Jbuilder 启动失败，找原因2005-09-27阅读744
+?struts 标签库2005-07-20阅读880
+?学习Spring Framework的记录（1）2005-02-28阅读701
+?java语言时间日期学习2005-02-24阅读1412
+?在aix下安装gcc2005-01-05阅读923
+?meta标签2005-08-05阅读1014
+?Spring Framework 1.1.5 Released2005-03-01阅读850
+?计算前一天的日期2005-02-25阅读1547
+?win2003下完全卸载oracle9i2005-01-05阅读2837
+
+ 
+参考知识库
+img
+Java SE知识库
+23310关注|468收录
+img
+Java EE知识库
+15606关注|1260收录
+img
+Java 知识库
+23518关注|1449收录
+猜你在找
+深入Javascript 日期对象(Date)视频课程深入Javascript Object(对象)视频教程JavaScript面向对象的编程视频课程第二季 对象java语言从入门到精通2016+项目实训深入浅出Java的反射
+Java Servlet 技术简介Java Servlet 技术简介java基础学习总结FileReader读取文件内容Java基础之IO流中使用FileWriter和FileReader实现拷贝文件
+
+ 
+关闭
+
+查看评论
+2楼 Ordosbxy 2011-01-21 09:20发表 [回复]
+
+[e01]
+1楼 duyaxiaoyu 2010-09-03 12:02发表 [回复]
+
+[e01]
+您还没有登录,请[登录]或[注册]
+* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场
+核心技术类目
+全部主题 Hadoop AWS 移动游戏 Java Android iOS Swift 智能硬件 Docker OpenStack VPN Spark ERP IE10 Eclipse CRM JavaScript 数据库 Ubuntu NFC WAP jQuery BI HTML5 Spring Apache .NET API HTML SDK IIS Fedora XML LBS Unity Splashtop UML components Windows Mobile Rails QEMU KDE Cassandra CloudStack FTC coremail OPhone CouchBase 云计算 iOS6 Rackspace Web App SpringSide Maemo Compuware 大数据 aptech Perl Tornado Ruby Hibernate ThinkPHP HBase Pure Solr Angular Cloud Foundry Redis Scala Django Bootstrap
+个人资料
+ 访问我的空间 
+miyuki0424
+ 
+访问：53071次
+积分：583
+等级： 
+排名：千里之外
+原创：13篇转载：0篇译文：0篇评论：3条
+文章搜索
+
+搜索
+文章分类
+学习是件辛苦的事情(10)
+我思(3)
+我思，故我在(0)
+故我在(3)
+文章存档
+2005年11月(1)
+2005年09月(2)
+2005年08月(1)
+2005年07月(2)
+2005年03月(2)
+展开
+阅读排行
+使用FileReader和FileWriter读取写入文件内容(32813)
+男高音歌唱家：安德烈·波切利(4625)
+win2003下完全卸载oracle9i(2838)
+计算前一天的日期(1548)
+java语言时间日期学习(1413)
+meta标签(1014)
+在aix下安装gcc(923)
+struts 标签库(880)
+Spring Framework 1.1.5 Released(850)
+我是一只小小鸟-心酸童声版(829)
+评论排行
+使用FileReader和FileWriter读取写入文件内容(2)
+还有两周fish才回来(1)
+我是一只小小鸟-心酸童声版(0)
+登录 | 注册
+I love fish
+目录视图摘要视图订阅
+技术人的充电时刻，24个精彩研发案例在等你      程序员2月书讯     社区有奖问答--一起舞动酷炫的iOS动画
+ 使用FileReader和FileWriter读取写入文件内容
+标签： bufferstringfileexceptionimportclass
+2005-03-02 15:20 32838人阅读 评论(2) 收藏 举报
+ 分类： 学习是件辛苦的事情（9）  
+版权声明：本文为博主原创文章，未经博主允许不得转载。
+
+Java 中的字节流不能直接操作Unicode字符，要想直接操作字符输入/输出要使用几个字符输入/输出类。
+
+字符流层次结构的顶层是Reader和Writer抽象类。
+
+1、Reader
+
+    Reader是定义java的流式字符输入模式的抽象类。错误异常为IOException。
+
+    主要方法有：
+
+    abstract  void  close() 关闭输入流，关闭后读取将会产生IOException异常。
+
+    void  mark(int numChars) 在输入流的当前位置设立一个标志。该输入流在numChars个字符被读取前有效。
+
+    boolean markSupported() 该流支持mark()/reset()则返回true。
+
+    int read() 如果调用的输入流的下一个字符可读则返回一个整型，文件尾返回-1。
+
+    int read(char buffer[ ]) 试图读取buffe中的buffer.length个字符，返回实际成功读取的字符数，文件尾返回-1。
+
+    abstract int read (char buffer[ ], int offset, int numChars) 试图读取buffer中从buffer[offset]开始的 numChars个字符，返回实际成功读取的字符数，文件尾返回-1。
+
+    void reset()  设置输入指针到先前设立的标志处。
+
+    long skip (long numChars) 跳过numChars 个输入字符，返回跳过的字符数。
+
+2、writer
+
+    writer 是定义流矢字符输出的抽象类。所有该类的方法都返回一个void值并在出错条件下引发一个IOException异常。
+
+    主要方法：
+
+    abstract void close()  关闭输出流，关闭后的写操作引发IOException异常。
+
+    abstract void flush(0  定制输出状态以使每个缓冲器都被清除。也就是刷新缓冲。
+
+    void  write(int ch) 向输出流写入单个字符。参数是一个整型，可以不必把参数转换成字符型就可以调用。
+
+    void write (char buffer[ ]) 向一个输出流写入一个完整的字符数组。
+
+    abstract void write (char buffer[ ], int offset ,int numChars)  向调用的输出流写入数组buffer 以buffer[offset]为起点的numChars个字符区域内的内容。
+
+    void write(String str)  向调用的输出流写str。
+
+    void write (String str, int offset, int numChars) 写数组str中以制定的offset为起点的长度为numChars个字符区域内的内容。
+
+3、FileReader
+
+    FileReader类创建了一个可以读取文件内容的Reader类。它的构造函数：
+
+    FileReader (String filePath)  filePath 是一个文件的完整路径
+
+    FileReader(File fileObj)  fileObj 是描述该文件的File对象
+
+    均引发FileNotFoundException异常。
+
+    例如，从一个文件逐行读取并把它输出到标准输入流。
+
+    import  java.io.*;
+
+    class FileReaderDemo {
+
+        public static void main (String args[ ] ) throws Exception {
+
+            FileReader fr =  new FileReader ("c://in.txt");
+
+            BufferedReader br = new BufferedReader (fr);
+
+            String s;
+
+             while ((s = br.readLine() )!=null) {
+
+                 System.out.prinln (s);
+
+              }
+
+            fr.close();
+
+      }
+
+    }
+
+4、FileWriter
+
+    FileWriter 创建一个可以写文件的Writer类。构造函数：
+
+    FileWriter (String filePath)  filePath 是一个文件的完整路径
+
+    FileWriter(String filePath, boolean append)  如果append为true ,输出是附加到文件尾的。
+
+    FileWriter(File fileObj)  是描述该文件的File对象
+
+    例如，创建了一个样本字符缓冲器，开始生成一个String，然后用getChars()方法提取字符数组。然后创建了 三个文件，file1.txt包含例子中的隔个字符，file2.txt包含所有的字符，file2.txt包含最后的四分之一。
+
+    import  java.io.*;
+
+    class FileWriterDemo {
+
+        public static void  main (String args[ ]) throws Exception {
+
+            String source = "learn how to write to file";
+
+            FileWriter  f1 = new FileWriter("file1.txt");
+
+            for  (int i=0; i<buffer.length; i +=2) {
+
+                f1.write (buffer[i]);
+
+             }
+
+            fo.close();
+
+             FileWriter f2 = new FileWriter("file2.txt");
+
+            f2.write(buffer);
+
+            f2.close();
+
+            FileWriter  f3 = new FileWriter ("file3.txt");
+
+            f2.write(buffer,buffer.length-buffer.length/4, buffer.length/4);
+
+        }
+
+}
+
+顶
+0
+踩
+0
+ 
+ 
+上一篇Spring Framework 1.1.5 Released
+下一篇还有两周fish才回来
+我的同类文章
+学习是件辛苦的事情（9）
+?Jbuilder 启动失败，找原因2005-09-27阅读744
+?struts 标签库2005-07-20阅读880
+?学习Spring Framework的记录（1）2005-02-28阅读701
+?java语言时间日期学习2005-02-24阅读1412
+?在aix下安装gcc2005-01-05阅读923
+?meta标签2005-08-05阅读1014
+?Spring Framework 1.1.5 Released2005-03-01阅读850
+?计算前一天的日期2005-02-25阅读1547
+?win2003下完全卸载oracle9i2005-01-05阅读2837
+
+ 
+参考知识库
+img
+Java SE知识库
+23310关注|468收录
+img
+Java EE知识库
+15606关注|1260收录
+img
+Java 知识库
+23518关注|1449收录
+猜你在找
+深入Javascript 日期对象(Date)视频课程深入Javascript Object(对象)视频教程JavaScript面向对象的编程视频课程第二季 对象java语言从入门到精通2016+项目实训深入浅出Java的反射
+Java Servlet 技术简介Java Servlet 技术简介java基础学习总结FileReader读取文件内容Java基础之IO流中使用FileWriter和FileReader实现拷贝文件
+
+ 
+关闭
+
+查看评论
+2楼 Ordosbxy 2011-01-21 09:20发表 [回复]
+
+[e01]
+1楼 duyaxiaoyu 2010-09-03 12:02发表 [回复]
+
+[e01]
+您还没有登录,请[登录]或[注册]
+* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场
+核心技术类目
+全部主题 Hadoop AWS 移动游戏 Java Android iOS Swift 智能硬件 Docker OpenStack VPN Spark ERP IE10 Eclipse CRM JavaScript 数据库 Ubuntu NFC WAP jQuery BI HTML5 Spring Apache .NET API HTML SDK IIS Fedora XML LBS Unity Splashtop UML components Windows Mobile Rails QEMU KDE Cassandra CloudStack FTC coremail OPhone CouchBase 云计算 iOS6 Rackspace Web App SpringSide Maemo Compuware 大数据 aptech Perl Tornado Ruby Hibernate ThinkPHP HBase Pure Solr Angular Cloud Foundry Redis Scala Django Bootstrap
+个人资料
+ 访问我的空间 
+miyuki0424
+ 
+访问：53071次
+积分：583
+等级： 
+排名：千里之外
+原创：13篇转载：0篇译文：0篇评论：3条
+文章搜索
+
+搜索
+文章分类
+学习是件辛苦的事情(10)
+我思(3)
+我思，故我在(0)
+故我在(3)
+文章存档
+2005年11月(1)
+2005年09月(2)
+2005年08月(1)
+2005年07月(2)
+2005年03月(2)
+展开
+阅读排行
+使用FileReader和FileWriter读取写入文件内容(32813)
+男高音歌唱家：安德烈·波切利(4625)
+win2003下完全卸载oracle9i(2838)
+计算前一天的日期(1548)
+java语言时间日期学习(1413)
+meta标签(1014)
+在aix下安装gcc(923)
+struts 标签库(880)
+Spring Framework 1.1.5 Released(850)
+我是一只小小鸟-心酸童声版(829)
+评论排行
+使用FileReader和FileWriter读取写入文件内容(2)
+还有两周fish才回来(1)
+我是一只小小鸟-心酸童声版(0)
+meta标签(0)
+struts 标签库(0)
+Spring Framework 1.1.5 Released(0)
+学习Spring Framework的记录（1）(0)
+计算前一天的日期(0)
+java语言时间日期学习(0)
+win2003下完全卸载oracle9i(0)
+推荐文章
+* CSDN日报20170225——《六年程序生涯》
+* Android"挂逼"修炼之行---解析公众号文章消息和链接文章消息如何自动打开原理
+* 技术晋升的评定与博弈
+* 安居客Android项目架构演进
+* Apk脱壳圣战之---如何脱掉“梆梆加固”的保护壳
+最新评论
+使用FileReader和FileWriter读取写入文件内容
+Ordosbxy:
+使用FileReader和FileWriter读取写入文件内容
+duyaxiaoyu:
+还有两周fish才回来
+twent: 哈哈 过去已过已飘去，好好在一起吧，什么时候发喜糖啊
+我喜欢的blog
+http://blog.csdn.net/zlhg/ (RSS)
+
+公司简介|招贤纳士|广告服务|联系方式|版权声明|法律顾问|问题报告|合作伙伴|论坛反馈
+网站客服杂志客服微博客服webmaster@csdn.net400-600-2320|北京创新乐知信息技术有限公司 版权所有|江苏知之为计算机有限公司|江苏乐知网络技术有限公司
+京 ICP 证 09002463 号|Copyright ? 1999-2016, CSDN.NET, All Rights Reserved GongshangLogo
+
+
+登录 | 注册
+I love fish
+目录视图摘要视图订阅
+技术人的充电时刻，24个精彩研发案例在等你      程序员2月书讯     社区有奖问答--一起舞动酷炫的iOS动画
+ 使用FileReader和FileWriter读取写入文件内容
+标签： bufferstringfileexceptionimportclass
+2005-03-02 15:20 32838人阅读 评论(2) 收藏 举报
+ 分类： 学习是件辛苦的事情（9）  
+版权声明：本文为博主原创文章，未经博主允许不得转载。
+
+Java 中的字节流不能直接操作Unicode字符，要想直接操作字符输入/输出要使用几个字符输入/输出类。
+
+字符流层次结构的顶层是Reader和Writer抽象类。
+
+1、Reader
+
+    Reader是定义java的流式字符输入模式的抽象类。错误异常为IOException。
+
+    主要方法有：
+
+    abstract  void  close() 关闭输入流，关闭后读取将会产生IOException异常。
+
+    void  mark(int numChars) 在输入流的当前位置设立一个标志。该输入流在numChars个字符被读取前有效。
+
+    boolean markSupported() 该流支持mark()/reset()则返回true。
+
+    int read() 如果调用的输入流的下一个字符可读则返回一个整型，文件尾返回-1。
+
+    int read(char buffer[ ]) 试图读取buffe中的buffer.length个字符，返回实际成功读取的字符数，文件尾返回-1。
+
+    abstract int read (char buffer[ ], int offset, int numChars) 试图读取buffer中从buffer[offset]开始的 numChars个字符，返回实际成功读取的字符数，文件尾返回-1。
+
+    void reset()  设置输入指针到先前设立的标志处。
+
+    long skip (long numChars) 跳过numChars 个输入字符，返回跳过的字符数。
+
+2、writer
+
+    writer 是定义流矢字符输出的抽象类。所有该类的方法都返回一个void值并在出错条件下引发一个IOException异常。
+
+    主要方法：
+
+    abstract void close()  关闭输出流，关闭后的写操作引发IOException异常。
+
+    abstract void flush(0  定制输出状态以使每个缓冲器都被清除。也就是刷新缓冲。
+
+    void  write(int ch) 向输出流写入单个字符。参数是一个整型，可以不必把参数转换成字符型就可以调用。
+
+    void write (char buffer[ ]) 向一个输出流写入一个完整的字符数组。
+
+    abstract void write (char buffer[ ], int offset ,int numChars)  向调用的输出流写入数组buffer 以buffer[offset]为起点的numChars个字符区域内的内容。
+
+    void write(String str)  向调用的输出流写str。
+
+    void write (String str, int offset, int numChars) 写数组str中以制定的offset为起点的长度为numChars个字符区域内的内容。
+
+3、FileReader
+
+    FileReader类创建了一个可以读取文件内容的Reader类。它的构造函数：
+
+    FileReader (String filePath)  filePath 是一个文件的完整路径
+
+    FileReader(File fileObj)  fileObj 是描述该文件的File对象
+
+    均引发FileNotFoundException异常。
+
+    例如，从一个文件逐行读取并把它输出到标准输入流。
+
+    import  java.io.*;
+
+    class FileReaderDemo {
+
+        public static void main (String args[ ] ) throws Exception {
+
+            FileReader fr =  new FileReader ("c://in.txt");
+
+            BufferedReader br = new BufferedReader (fr);
+
+            String s;
+
+             while ((s = br.readLine() )!=null) {
+
+                 System.out.prinln (s);
+
+              }
+
+            fr.close();
+
+      }
+
+    }
+
+4、FileWriter
+
+    FileWriter 创建一个可以写文件的Writer类。构造函数：
+
+    FileWriter (String filePath)  filePath 是一个文件的完整路径
+
+    FileWriter(String filePath, boolean append)  如果append为true ,输出是附加到文件尾的。
+
+    FileWriter(File fileObj)  是描述该文件的File对象
+
+    例如，创建了一个样本字符缓冲器，开始生成一个String，然后用getChars()方法提取字符数组。然后创建了 三个文件，file1.txt包含例子中的隔个字符，file2.txt包含所有的字符，file2.txt包含最后的四分之一。
+
+    import  java.io.*;
+
+    class FileWriterDemo {
+
+        public static void  main (String args[ ]) throws Exception {
+
+            String source = "learn how to write to file";
+
+            FileWriter  f1 = new FileWriter("file1.txt");
+
+            for  (int i=0; i<buffer.length; i +=2) {
+
+                f1.write (buffer[i]);
+
+             }
+
+            fo.close();
+
+             FileWriter f2 = new FileWriter("file2.txt");
+
+            f2.write(buffer);
+
+            f2.close();
+
+            FileWriter  f3 = new FileWriter ("file3.txt");
+
+            f2.write(buffer,buffer.length-buffer.length/4, buffer.length/4);
+
+        }
+
+}
+
+顶
+0
+踩
+0
+ 
+ 
+上一篇Spring Framework 1.1.5 Released
+下一篇还有两周fish才回来
+我的同类文章
+学习是件辛苦的事情（9）
+?Jbuilder 启动失败，找原因2005-09-27阅读744
+?struts 标签库2005-07-20阅读880
+?学习Spring Framework的记录（1）2005-02-28阅读701
+?java语言时间日期学习2005-02-24阅读1412
+?在aix下安装gcc2005-01-05阅读923
+?meta标签2005-08-05阅读1014
+?Spring Framework 1.1.5 Released2005-03-01阅读850
+?计算前一天的日期2005-02-25阅读1547
+?win2003下完全卸载oracle9i2005-01-05阅读2837
+
+ 
+参考知识库
+img
+Java SE知识库
+23310关注|468收录
+img
+Java EE知识库
+15606关注|1260收录
+img
+Java 知识库
+23518关注|1449收录
+猜你在找
+深入Javascript 日期对象(Date)视频课程深入Javascript Object(对象)视频教程JavaScript面向对象的编程视频课程第二季 对象java语言从入门到精通2016+项目实训深入浅出Java的反射
+Java Servlet 技术简介Java Servlet 技术简介java基础学习总结FileReader读取文件内容Java基础之IO流中使用FileWriter和FileReader实现拷贝文件
+
+ 
+关闭
+
+查看评论
+2楼 Ordosbxy 2011-01-21 09:20发表 [回复]
+
+[e01]
+1楼 duyaxiaoyu 2010-09-03 12:02发表 [回复]
+
+[e01]
+您还没有登录,请[登录]或[注册]
+* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场
+核心技术类目
+全部主题 Hadoop AWS 移动游戏 Java Android iOS Swift 智能硬件 Docker OpenStack VPN Spark ERP IE10 Eclipse CRM JavaScript 数据库 Ubuntu NFC WAP jQuery BI HTML5 Spring Apache .NET API HTML SDK IIS Fedora XML LBS Unity Splashtop UML components Windows Mobile Rails QEMU KDE Cassandra CloudStack FTC coremail OPhone CouchBase 云计算 iOS6 Rackspace Web App SpringSide Maemo Compuware 大数据 aptech Perl Tornado Ruby Hibernate ThinkPHP HBase Pure Solr Angular Cloud Foundry Redis Scala Django Bootstrap
+个人资料
+ 访问我的空间 
+miyuki0424
+ 
+访问：53071次
+积分：583
+等级： 
+排名：千里之外
+原创：13篇转载：0篇译文：0篇评论：3条
+文章搜索
+
+搜索
+文章分类
+学习是件辛苦的事情(10)
+我思(3)
+我思，故我在(0)
+故我在(3)
+文章存档
+2005年11月(1)
+2005年09月(2)
+2005年08月(1)
+2005年07月(2)
+2005年03月(2)
+展开
+阅读排行
+使用FileReader和FileWriter读取写入文件内容(32813)
+男高音歌唱家：安德烈·波切利(4625)
+win2003下完全卸载oracle9i(2838)
+计算前一天的日期(1548)
+java语言时间日期学习(1413)
+meta标签(1014)
+在aix下安装gcc(923)
+struts 标签库(880)
+Spring Framework 1.1.5 Released(850)
+我是一只小小鸟-心酸童声版(829)
+评论排行
+使用FileReader和FileWriter读取写入文件内容(2)
+还有两周fish才回来(1)
+我是一只小小鸟-心酸童声版(0)
+meta标签(0)
+struts 标签库(0)
+Spring Framework 1.1.5 Released(0)
+学习Spring Framework的记录（1）(0)
+计算前一天的日期(0)
+java语言时间日期学习(0)
+win2003下完全卸载oracle9i(0)
+推荐文章
+* CSDN日报20170225——《六年程序生涯》
+* Android"挂逼"修炼之行---解析公众号文章消息和链接文章消息如何自动打开原理
+* 技术晋升的评定与博弈
+* 安居客Android项目架构演进
+* Apk脱壳圣战之---如何脱掉“梆梆加固”的保护壳
+最新评论
+使用FileReader和FileWriter读取写入文件内容
+Ordosbxy:
+使用FileReader和FileWriter读取写入文件内容
+duyaxiaoyu:
+还有两周fish才回来
+twent: 哈哈 过去已过已飘去，好好在一起吧，什么时候发喜糖啊
+我喜欢的blog
+http://blog.csdn.net/zlhg/ (RSS)
+
+公司简介|招贤纳士|广告服务|联系方式|版权声明|法律顾问|问题报告|合作伙伴|论坛反馈
+网站客服杂志客服微博客服webmaster@csdn.net400-600-2320|北京创新乐知信息技术有限公司 版权所有|江苏知之为计算机有限公司|江苏乐知网络技术有限公司
+京 ICP 证 09002463 号|Copyright ? 1999-2016, CSDN.NET, All Rights Reserved GongshangLogo
+
+
+meta标签(0)
+struts 标签库(0)
+Spring Framework 1.1.5 Released(0)
+学习Spring Framework的记录（1）(0)
+计算前一天的日期(0)
+java语言时间日期学习(0)
+win2003下完全卸载oracle9i(0)
+推荐文章
+* CSDN日报20170225——《六年程序生涯》
+* Android"挂逼"修炼之行---解析公众号文章消息和链接文章消息如何自动打开原理
+* 技术晋升的评定与博弈
+* 安居客Android项目架构演进
+* Apk脱壳圣战之---如何脱掉“梆梆加固”的保护壳
+最新评论
+使用FileReader和FileWriter读取写入文件内容
+Ordosbxy:
+使用FileReader和FileWriter读取写入文件内容
+duyaxiaoyu:
+还有两周fish才回来
+twent: 哈哈 过去已过已飘去，好好在一起吧，什么时候发喜糖啊
+我喜欢的blog
+http://blog.csdn.net/zlhg/ (RSS)
+
+公司简介|招贤纳士|广告服务|联系方式|版权声明|法律顾问|问题报告|合作伙伴|论坛反馈
+网站客服杂志客服微博客服webmaster@csdn.net400-600-2320|北京创新乐知信息技术有限公司 版权所有|江苏知之为计算机有限公司|江苏乐知网络技术有限公司
+京 ICP 证 09002463 号|Copyright ? 1999-2016, CSDN.NET, All Rights Reserved GongshangLogo
+
